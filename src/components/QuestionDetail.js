@@ -61,7 +61,7 @@ class QuestionDetail extends Component {
                                     <div>{votesOptionOne} out of {totalVotes} votes</div>
                                     <div>Percentage votes: {percentageOptionOne}%</div>
                                 </div>
-                                <div class="your-vote">Your pick</div>
+                                <div className="your-vote">Your pick</div>
                             </div>
 
                             <div className={answer === 'optionTwo' ? 'option-container selected': 'option-container'}>
@@ -71,7 +71,7 @@ class QuestionDetail extends Component {
                                     <div>{votesOptionTwo} out of {totalVotes} votes</div>
                                     <div>Percentage votes: {percentageOptionTwo}%</div>
                                 </div>
-                                <div class="your-vote">Your pick</div>
+                                <div className="your-vote">Your pick</div>
                             </div>
                         </div>
                     )}
