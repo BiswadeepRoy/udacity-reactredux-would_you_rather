@@ -20,11 +20,6 @@ export default function users(state = {}, action) {
 			    }
             }
         case ADD_QUESTION:
-            console.log("HELP", state)
-            console.log({
-                ...state, [action.author]: {
-                    ...state[action.auther],
-                }})
             return {
                 ...state,
                 [action.author]: {

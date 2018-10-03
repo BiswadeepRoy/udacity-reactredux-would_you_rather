@@ -17,7 +17,7 @@ import {
   }
   
   export function saveQuestion (info) {
-    console.log('saving', info)
+    //console.log('saving', info)
     return _saveQuestion(info)
   }
   
