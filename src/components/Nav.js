@@ -1,59 +1,52 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-    
+
 class Nav extends Component {
     render() {
-        const { user, authedUser } = this.props
-        const avatar = user ? user.avatarURL : 'placeholder.png'
-        const name = user ? user.name : ''
+        const { authedUser } = this.props
+        const avatar = authedUser ? authedUser.avatarURL : 'placeholder.png'
+        const name = authedUser ? authedUser.name : ''
         return (
-    
-        //activeClassName is not working...some issue in react-router-dom
-        <nav className='nav'>
-            <ul>
-                <li>
-                    <NavLink to='/dashboard' exact activeClassName='active'>
-                        Home
+
+
+            <nav className='nav'>
+                <ul>
+                    <li>
+                        <NavLink exact to='/dashboard' activeClassName='active'>
+                            Home
                     </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/add' exact activeClassName='active'>
-                        New Question
+                    </li>
+                    <li>
+                        <NavLink to='/add' activeClassName='active'>
+                            New Question
                     </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/leaderboard' exact activeClassName='active'>
-                        Leader Board
+                    </li>
+                    <li>
+                        <NavLink to='/leaderboard' activeClassName='active'>
+                            Leader Board
                     </NavLink>
-                </li>
-                {
-                    authedUser
-                    && <li className="user-info">
-                            <NavLink to='/' exact activeClassName='active'>
-                                <div className="nav-user">
-                                    <span>Hello {name}</span>
-                                    <img
-                                    src={avatar}
-                                    alt={`Avatar of ${authedUser}`}
-                                    className='nav-avatar'
-                                    />
-                                    <span>Logout</span>
+                    </li>
+                    {
+                        authedUser
+                        && <li className="user-info">
+                            <NavLink to='/' activeClassName='active'>
+                                <div className="user-nav">
+                                    <span>Hello <img src={avatar} alt='avatar' className='avatar-nav' /> {name}   <span className='logout'>Logout</span></span>
                                 </div>
                             </NavLink>
                         </li>
-                }
-            </ul>
-        </nav>
-    )
+                    }
+                </ul>
+            </nav>
+        )
     }
 }
 
-function mapStateToProps( { authedUser, users}, props) {
+function mapStateToProps({ authedUser, users }, props) {
     return {
-        authedUser,
         users,
-        user: users[authedUser]
+        authedUser: users[authedUser]
     }
 
 }

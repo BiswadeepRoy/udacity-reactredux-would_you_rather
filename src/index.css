@@ -1,18 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-}
-
-.main-content {
-  text-align: center;
-  margin: 0 auto;
-  width: 480px;
-}
-
-.disabled {
-  pointer-events: none;
-  opacity: 0.4;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 ul {
@@ -26,10 +15,25 @@ li {
   text-decoration: none;
 }
 
+.main-content {
+  text-align: center;
+  margin: 0 auto;
+  width: 480px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 nav {
   margin: 50px auto;
   width: 80%;
   margin-top: 20px;
+}
+
+.nav {
+  color: #008080;
 }
 
 .nav ul {
@@ -48,20 +52,18 @@ nav {
   padding-left: 0;
 }
 
-/* .nav li:last-child {
-  float: right;
-  padding-right: 0;
-  margin-right: 0;
-  margin-left: auto;
-} */
+.logout {
+  font-weight: bold;
+}
 
-.nav-user {
+.user-nav {
   float: right;
   display: flex;
   align-items: center;
+  font-weight: 300;
 }
 
-.nav-avatar {
+.avatar-nav {
   height: 20px;
   width: 20px;
   border-radius: 15px;
@@ -73,11 +75,10 @@ nav {
   height: 80px;
 }
 
-/*dashboard*/
 button {
   margin: 0px auto;
   padding: 10px;
-  border: 1px solid rgba(0,0,0,.29);
+  border: 1px solid rgba(0, 0, 0, 0.29);
   cursor: pointer;
   background: #fff;
   font-size: 16px;
@@ -86,151 +87,31 @@ button {
   outline: 0;
 }
 
-.btn-default {
+.button-default {
   padding: 6px;
-  color: #c1571A;
+  color: #008080;
 }
 
-.btn-group .btn-selected {
-  color: #c1571A
+.button-group .button-selected {
+  color: #008080;
 }
 
-.btn-group .btn-default {
+.button-group .button-default {
   padding: 10px;
   color: #000;
 }
 
-.tile-item {
-    height: 162px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 0;
+.card {
+  height: 170px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 0;
 }
 
 a {
   text-decoration: none;
   color: #000;
-}
-
-.tile-body {
-  padding: 12px;
-}
-
-.tile-header{
-  height: 40px;
-  line-height: 40px;
-  background: #c1571A;
-  color: #fff;
-}
-
-.tile-left {
-  width: 33%;
-  display: inline-block;
-  border-right: 1px solid #ccc;
-}
-
-.question-body {
-  width: 62%;
-  float: right;
-  text-align: left;
-  margin-left: 10px;
-}
-
-.would-you {
-  font-weight: bold;
-}
-
-.question-text {
-  margin: 12px 0;
-}
-
-.option-container {
-  margin: 10px;
-  border-radius: 6px;
-  background: #eee;
-  padding: 10px;
-  border: 1px solid #c2c2c2;
-  position: relative;
-}
-
-.option-container.selected {
-  border-color: transparent;
-  color: #fff;
-  background: #c1571A;
-}
-
-.option {
-  margin: 5px 0;
-  cursor: pointer;
-}
-.option-selected {
-  color: #c1571A;
-}
-
-.question-detail {
-  height: 250px;
-}
-
-.question-detail .tile-left {
-  padding-top: 45px;
-  padding-bottom: 45px;
-}
-
-.users-list .tile-item{
-  padding: 10px;
-}
-
-.tile-section {
-  display: inline-block;
-}
-
-.tile-section.section-1 {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  border-right: 1px solid #ccc;
-}
-
-.tile-section.section-1,
-.tile-section.section-3 {
-  width: 25%;
-}
-
-.tile-section.section-3 {
-    width: 24%;
-    border: 1px solid #ccc;
-    height: 85px;
-    margin-top: 38px;
-    vertical-align: top;
-}
-
-.tile-section.section-2 {
-  vertical-align: top;
-  width: 47%;
-  text-align: left;
-  margin-left: 10px;
-}
-
-.tile-section.section-2 .user-name {
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.tile-section.section-2 .label {
-  padding: 10px 0px;
-  display: inline-block;
-  width: 180px;
-}
-
-.total-score-header {
-  background: #c1571A;
-  padding: 10px;
-  color: #fff;
-}
-
-.total-score-count {
-  padding: 15px;
 }
 
 form {
@@ -252,11 +133,135 @@ input {
 .new-question button {
   width: 400px;
   margin-left: 22px;
-  color: #c1571A;
-  border: 1px solid #c1571A;
+  color: #008080;
+  border: 1px solid #008080;
 }
 
-select{
+.card-body {
+  padding: 12px;
+}
+
+.card-header {
+  height: 40px;
+  line-height: 40px;
+  background: #008080;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.card-content {
+  width: 33%;
+  display: inline-block;
+  border-right: 1px solid #ccc;
+}
+
+.question-body {
+  width: 62%;
+  float: right;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.tagline {
+  font-weight: bold;
+}
+
+.question-text {
+  margin: 12px 0;
+}
+
+.option-container {
+  margin: 10px;
+  border-radius: 6px;
+  padding: 10px;
+  border: 1px solid #c2c2c2;
+  position: relative;
+}
+
+.option-container.selected {
+  border-color: transparent;
+  color: #fff;
+  background: #008080;
+}
+
+.option {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.option:hover {
+  color: #008080;
+}
+
+.option-selected {
+  color: #008080;
+}
+
+.question-detail {
+  height: 250px;
+}
+
+.question-detail .card-left {
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+
+.users-list .card {
+  padding: 10px;
+}
+
+.card-section {
+  display: inline-block;
+}
+
+.card-section.section-1 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-right: 1px solid #ccc;
+}
+
+.card-section.section-1,
+.card-section.section-3 {
+  width: 25%;
+}
+
+.card-section.section-3 {
+  width: 24%;
+  border: 1px solid #ccc;
+  height: 85px;
+  margin-top: 38px;
+  vertical-align: top;
+  background-color: #008080;
+  color: white;
+  border-radius: 5px;
+}
+
+.card-section.section-2 {
+  vertical-align: top;
+  width: 47%;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.card-section.section-2 .user-name {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-section.section-2 .label {
+  padding: 10px 0px;
+  display: inline-block;
+  width: 180px;
+}
+
+.total-score-header,
+.total-score-count {
+  font-weight: bold;
+  padding: 5px;
+}
+
+select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -269,36 +274,35 @@ select{
   padding: 18px;
 }
 
-.tile-item.login {
+.card.login {
   height: 250px;
 }
 
-.tile-item.login button {
+.card.login button {
   margin-top: 30px;
-  color: #c1571A;
-  border-color: #c1571A;
+  color: #008080;
+  border-color: #008080;
 }
 
-
-.your-vote {
+.your-pick {
   position: absolute;
   top: 0;
   right: 0;
   display: none;
+  display: block;
 }
 
-.option-container.selected .your-vote {
+.option-container.selected {
   display: block;
 }
 
 .active {
   font-weight: bold;
+  border-bottom: 2px solid #008080;
 }
 
 .user-info {
   padding-left: 200px;
-}
-
-.nav .active {
-  color: #c1571A;
+  text-align: right;
+  width: 40vw;
 }

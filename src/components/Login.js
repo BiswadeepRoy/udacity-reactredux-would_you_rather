@@ -1,87 +1,87 @@
 import React, { Component } from 'react';
+import { loginAuthedUser, logoutAuthedUser } from '../actions/authedUser';
 import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
-import { setAuthedUser, clearAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
 	state = {
 		userId: null,
-		toHome: false,
+		dashboardRedirect: false,
 	}
-	
-	handleSelectionChanged = function(event) {
+
+	componentDidMount() {
+		this.props.dispatch(logoutAuthedUser())
+	}
+
+	handleUserChanged = function (event) {
 		const userId = event.target.value;
-	
-		this.setState(function(previousState) {
-		  return {
-			...previousState,
-			userId,
-		  };
+
+		this.setState( (currentState) => {
+			return {
+				...currentState,
+				userId,
+			};
 		});
 	}
-	
-	handleLogin = function(event) {
+
+	handleLogin = function () {
 		const { userId } = this.state;
 		const { dispatch } = this.props;
-	
-		dispatch(setAuthedUser(userId));
-	
-		this.setState(function(previousState) {
-		  return {
-			...previousState,
-			toHome: true,
-		  };
+
+		dispatch(loginAuthedUser(userId));
+
+		this.setState((currentState) => {
+			return {
+				...currentState,
+				dashboardRedirect: true,
+			};
 		});
 	}
-	
-	componentDidMount() {
-		this.props.dispatch(clearAuthedUser())
-	}
 
-    render() {
-		const { userId, toHome } = this.state;
+	render() {
+		const { userId, dashboardRedirect } = this.state;
 		const { users } = this.props;
-		const { from } = this.props.location.state || { from: { pathname: '/dashboard'}}
-		const selected = userId ? userId : -1
+		const { from } = this.props.location.state || { from: { pathname: '/dashboard' } }
+		const selected = userId ? userId : 'default'
 
-		//if authenticated
-		if(toHome) {
+		if (dashboardRedirect) {
 			return <Redirect to={from} />
 		}
-        
-        return (
-		    <div className='tile-item login'>
-		        <div className="tile-header"><div>Welcome To Would You Rather App</div></div>
-		        <div className='user-select'>
-					<div>Please sign in to continue</div>
-					<select id="login-select" value={selected} onChange={(event) => this.handleSelectionChanged(event)}>
-						<option value="-1" disabled>Select user...</option>
-						{Object.keys(users).map(function(key) {
-							return (
-								<option value={users[key].id} key={key}>
-									{users[key].name}
-								</option>
-							);
-						})}
-					</select>
+		else
+		{
+			return (
+				<div className='card login'>
+					<div className="card-header"><div>Welcome To Would You Rather App</div></div>
+					<div className='user-select'>
+						<div>Please sign in to continue .. </div>
+						<select id="user-login" value={selected} onChange={(event) => this.handleUserChanged(event)}>
+							<option value="default" disabled>Select user...</option>
+							{Object.keys(users).map(function (key) {
+								return (
+									<option value={users[key].id} key={key}>
+										{users[key].name}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+	
+					<button
+						className='button'
+						disabled={userId === null}
+						onClick={(event) => this.handleLogin(event)}>
+						Login
+					</button>
 				</div>
-
-				<button
-					className='btn'
-					disabled={userId === null}
-					onClick={(event) => this.handleLogin(event)}>
-					Login
-				</button>
-				{/* {redirect && <div>You must log in to view this page</div>} */}
-          </div>
-		);  
-    }
+			)
+		}
+	}
 }
 
-function mapStateToProps ({users}) {  
-    return {
-      users,
-    };
-  }
+function mapStateToProps({ users }) {
+
+	return {users}
+
+}
 
 export default withRouter(connect(mapStateToProps)(Login));

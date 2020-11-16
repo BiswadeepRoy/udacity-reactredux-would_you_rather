@@ -1,4 +1,4 @@
-import { saveQuestion, saveQuestionAnswer } from '../utils/api'
+import { saveQuestion, saveQuestionAnswer } from '../utils/helper'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -11,7 +11,7 @@ export function receiveQuestions(questions) {
     }
 }
 
-function addQuestion({ id, timestamp, author, optionOne, optionTwo }) {
+function addQuestionAction({ id, timestamp, author, optionOne, optionTwo }) {
     return {
         type: ADD_QUESTION,
         id,
@@ -19,6 +19,15 @@ function addQuestion({ id, timestamp, author, optionOne, optionTwo }) {
         author,
         optionOne,
         optionTwo
+    }
+}
+
+function addAnswerAction({ authedUser, qid, answer }) {
+    return {
+        type: ANSWER_QUESTION,
+        authedUser,
+        qid,
+        answer
     }
 }
 
@@ -33,38 +42,27 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
             author: authedUser
         }
 
-        //dispatching this here and not after api success cause of frequent error in creating question
-        //dispatch(addQuestion(formatNewQuestion(questionInfo)))
+        //  console.log(questionInfo)
 
         return saveQuestion(questionInfo)
             .then((question) => {
-                console.log('created QUESTION', question);
-                dispatch(addQuestion(question))
+                dispatch(addQuestionAction(question))
             })
-            .catch( (error) => {
-                console.log('There was a problem saving question.')
-                alert('There was a problem creating new question. Try again ')
-            })
-    }
-}
+            .catch((error) => {
 
-function addAnswer({ authedUser, qid, answer }) {
-    return {
-        type: ANSWER_QUESTION,
-        authedUser, 
-        qid, 
-        answer
+                alert('Error occured!! Try again')
+                console.error(error)
+            })
     }
 }
 
 export function handleAddAnswer(info) {
     return (dispatch) => {
-        //assuming answer gets updated correctly
-        dispatch(addAnswer(info))
+        dispatch(addAnswerAction(info))
         return saveQuestionAnswer(info)
-            .then(() => console.log('recorded answer'))
-            .catch( (error) => {
-                console.log('There was a problem saving question.');
+            .catch(() => {
+                alert('Error occured!! Try again')
             })
     }
 }
+

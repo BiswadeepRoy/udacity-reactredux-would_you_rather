@@ -22,9 +22,9 @@ export default function users(state = {}, action) {
         case ADD_QUESTION:
             return {
                 ...state,
-                [action.author]: {
-                    ...state[action.author],
-                    questions: state[action.author].questions.concat([action.id])
+                [action.authedUser]: {
+                    ...state[action.authedUser],
+                    questions: state[action.authedUser].questions.concat([action.id])
                 }
             }
         default:

@@ -1,53 +1,52 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-//import QuestionTile from './QuestionTile'
 import Question from './Question'
 
 class Dashboard extends Component {
     state = {
-        showAnswered: false
+        toggleAnswered: false
     }
-    filterQuestions = (showAnswered) => {
-        this.setState((state) => {
-            return { showAnswered: showAnswered }
+    filterQuestions = (toggleAnswered) => {
+        this.setState(() => {
+            return { toggleAnswered: toggleAnswered }
         })
-        
+
     }
     render() {
-        const { showAnswered } = this.state;
+        const { toggleAnswered } = this.state;
         const { questions, authedUser } = this.props
-        const questionsArray = Object.values(questions)
-        const filteredQuestions = questionsArray.filter(function(question) {
-            const contains = (
+        const filteredQuestions = Object.values(questions).filter(function (question) {
+            const unanswered = (
                 question.optionOne.votes.indexOf(authedUser) > -1 ||
                 question.optionTwo.votes.indexOf(authedUser) > -1
             );
-            return showAnswered ? contains : !contains;
+            return toggleAnswered ? unanswered : !unanswered;
         });
         const sortedQuestions = filteredQuestions.sort((a, b) => b.timestamp - a.timestamp);
         return (
             <div>
-                <div className="btn-group">
-                    <button className={ !showAnswered ? 'btn-selected' : 'btn-default'} onClick={(e) => this.filterQuestions(false)}>Unanswered Questions</button>
-                    <button className={ showAnswered ? 'btn-selected' : 'btn-default'} onClick={(e) => this.filterQuestions(true)}>Answered Questions</button>
+                <div className="button-group">
+                    <button className={!toggleAnswered ? 'button-selected' : 'button-default'} onClick={() => this.filterQuestions(false)}>Unanswered Questions</button>
+                    <button className={toggleAnswered ? 'button-selected' : 'button-default'} onClick={() => this.filterQuestions(true)}>Answered Questions</button>
                 </div>
 
-                <ul className="questions-list">
-                    {sortedQuestions.map((question) => (
-                        <li key={question.id}>
+                <ul className="questions-container">
+                    {sortedQuestions.map((question) => {
+                        console.log(question)
+                        return (<li key={question.id}>
                             <Link to={`question/${question['id']}`}>
-                                <Question id={question.id}/>
+                                <Question id={question.id} />
                             </Link>
-                        </li>
-                    ))}
+                        </li>)
+                    })}
                 </ul>
             </div>
         )
     }
 }
 
-function mapStateToProps( { questions, authedUser }) {
+function mapStateToProps({ questions, authedUser }) {
     return {
         authedUser,
         questions,
